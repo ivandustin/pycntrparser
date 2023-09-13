@@ -46,11 +46,12 @@ count: DIGIT+;
 
 edits: first (SPACE second (SPACE third)?)?;
 edit: OPEN_CURLY words? CLOSE_CURLY;
+
 first: uncorrected SPACE corrected;
-uncorrected: controls? X edit;
-corrected: controls? edit;
-second: controls? A edit;
-third: controls? B edit;
+uncorrected: controls? X edit controls?;
+corrected: controls? edit controls?;
+second: controls? A edit controls?;
+third: controls? B edit controls?;
 
 reference: bookNumber chapterNumber verseNumber;
 chapterNumber: DIGIT DIGIT DIGIT;
