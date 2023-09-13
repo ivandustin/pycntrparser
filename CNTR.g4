@@ -1,6 +1,6 @@
 grammar CNTR;
 
-start: verses EOF;
+start: COMMENT* verses EOF;
 
 verse: reference SPACE blocks NEWLINE?;
 verses: verse (NEWLINE verse)*;
@@ -51,6 +51,7 @@ chapterNumber: DIGIT DIGIT DIGIT;
 verseNumber: DIGIT DIGIT DIGIT;
 bookNumber: DIGIT DIGIT;
 
+COMMENT: '#' ~[\r\n]* ('\r'? '\n')?;
 LETTER: [\u03b1-\u03c9];
 REPLACEMENT: '\ufffd';
 NEWLINE: '\r'? '\n';
@@ -73,5 +74,3 @@ PIPE: '|';
 X: 'x';
 A: 'a';
 B: 'b';
-
-COMMENT: '#' ~[\r\n]* ('\r'? '\n')? -> skip;
