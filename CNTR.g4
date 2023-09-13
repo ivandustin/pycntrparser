@@ -7,21 +7,25 @@ verses: verse (NEWLINE verse)*;
 blocks: block (SPACE block)*;
 words: word (SPACE word)*;
 block: word | edits;
+controls: control+;
 word: element+;
+
+control:
+	verseRemnant
+	| columnBreak
+	| lineRemnant
+	| lineBreak
+	| pageBreak;
 
 element:
 	numericAbbreviation
 	| wordSuppliedByVid
 	| characterDamaged
 	| characterMissing
-	| verseRemnant
 	| wordSupplied
-	| columnBreak
 	| nominaSacra
-	| lineRemnant
 	| REPLACEMENT
-	| lineBreak
-	| pageBreak
+	| control
 	| LETTER
 	| MACRON;
 
@@ -38,7 +42,7 @@ wordSupplied: TILDE;
 nominaSacra: EQUAL;
 count: DIGIT+;
 
-edits: first (SPACE second (SPACE third)?)?;
+edits: controls? first (SPACE second (SPACE third)?)?;
 edit: OPEN_CURLY words? CLOSE_CURLY;
 first: uncorrected SPACE corrected;
 uncorrected: X edit;
