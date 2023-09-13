@@ -1,8 +1,12 @@
 grammar CNTR;
 
-start: verse+ EOF;
-verse: reference (SPACE word+)+;
+start: segment* EOF;
+segment: head SPACE body;
+body: block (SPACE block)*;
+text: word (SPACE word)*;
+block: word | edits;
 word: element+;
+
 element:
 	page_break
 	| column_break
@@ -31,13 +35,19 @@ verse_remnant: ASTERISK;
 vid: PLUS;
 numeric_abbreviation: DOLLAR;
 
-reference: book_number chapter_number verse_number;
-book_number: DIGIT DIGIT;
-chapter_number: DIGIT DIGIT DIGIT;
-verse_number: DIGIT DIGIT DIGIT;
+edits: first (SPACE second (SPACE third)?)?;
+edit: OPEN_CURLY text? CLOSE_CURLY;
+first: uncorrected SPACE corrected;
+uncorrected: X edit;
+corrected: edit;
+second: A edit;
+third: B edit;
 
-LINE_COMMENT: '#' ~[\r\n]* -> skip;
-NEWLINE: [\r\n]+ -> skip;
+head: book chapter verse;
+book: DIGIT DIGIT;
+chapter: DIGIT DIGIT DIGIT;
+verse: DIGIT DIGIT DIGIT;
+
 SPACE: ' ';
 LETTER: [\u03b1-\u03c9];
 DIGIT: [0-9];
@@ -53,3 +63,11 @@ PLUS: '+';
 DOLLAR: '$';
 MACRON: '\u00af';
 PIPE: '|';
+OPEN_CURLY: '{';
+CLOSE_CURLY: '}';
+X: 'x';
+A: 'a';
+B: 'b';
+
+LINE_COMMENT: '#' ~[\r\n]* -> skip;
+NEWLINE: [\r\n]+ -> skip;
