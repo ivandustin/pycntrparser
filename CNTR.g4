@@ -9,32 +9,33 @@ block: word | edits;
 word: element+;
 
 element:
-	pageBreak
-	| columnBreak
-	| lineBreak
-	| lineRemnant
+	numericAbbreviation
+	| wordSuppliedByVid
 	| characterDamaged
 	| characterMissing
-	| wordSupplied
-	| wordSuppliedByVid
-	| nominaSacra
 	| verseRemnant
-	| numericAbbreviation
-	| MACRON
-	| LETTER;
+	| wordSupplied
+	| columnBreak
+	| nominaSacra
+	| lineRemnant
+	| REPLACEMENT
+	| lineBreak
+	| pageBreak
+	| LETTER
+	| MACRON;
 
-count: DIGIT+;
-pageBreak: BACKSLASH count?;
-columnBreak: PIPE count?;
 lineBreak: FORWARD_SLASH count?;
-lineRemnant: AMPERSAND;
-characterDamaged: PERCENT;
 characterMissing: CIRCUMFLEX;
+numericAbbreviation: DOLLAR;
+pageBreak: BACKSLASH count?;
+characterDamaged: PERCENT;
+columnBreak: PIPE count?;
+wordSuppliedByVid: PLUS;
+lineRemnant: AMPERSAND;
+verseRemnant: ASTERISK;
 wordSupplied: TILDE;
 nominaSacra: EQUAL;
-verseRemnant: ASTERISK;
-wordSuppliedByVid: PLUS;
-numericAbbreviation: DOLLAR;
+count: DIGIT+;
 
 edits: first (SPACE second (SPACE third)?)?;
 edit: OPEN_CURLY words? CLOSE_CURLY;
@@ -45,28 +46,29 @@ second: A edit;
 third: B edit;
 
 reference: bookNumber chapterNumber verseNumber;
-bookNumber: DIGIT DIGIT;
 chapterNumber: DIGIT DIGIT DIGIT;
 verseNumber: DIGIT DIGIT DIGIT;
+bookNumber: DIGIT DIGIT;
 
-NEWLINE: '\r'? '\n';
-SPACE: ' ';
 LETTER: [\u03b1-\u03c9];
-DIGIT: [0-9];
-BACKSLASH: '\\';
+REPLACEMENT: '\ufffd';
+NEWLINE: '\r'? '\n';
 FORWARD_SLASH: '/';
-AMPERSAND: '&';
-PERCENT: '%';
+MACRON: '\u00af';
+CLOSE_CURLY: '}';
+BACKSLASH: '\\';
 CIRCUMFLEX: '^';
+OPEN_CURLY: '{';
+AMPERSAND: '&';
+ASTERISK: '*';
+DIGIT: [0-9];
+PERCENT: '%';
+DOLLAR: '$';
+SPACE: ' ';
 TILDE: '~';
 EQUAL: '=';
-ASTERISK: '*';
 PLUS: '+';
-DOLLAR: '$';
-MACRON: '\u00af';
 PIPE: '|';
-OPEN_CURLY: '{';
-CLOSE_CURLY: '}';
 X: 'x';
 A: 'a';
 B: 'b';
