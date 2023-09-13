@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+cd pycntrparser
+antlr4 -Dlanguage=Python3 ../grammars/CNTR.g4
