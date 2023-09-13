@@ -2,13 +2,15 @@ grammar CNTR;
 
 start: COMMENT* verses EOF;
 
-verse: reference SPACE blocks NEWLINE?;
+verse: reference SPACE content NEWLINE?;
 verses: verse (NEWLINE verse)*;
 blocks: block (SPACE block)*;
 words: word (SPACE word)*;
+content: empty | blocks;
 block: word | edits;
 controls: control+;
 word: element+;
+empty: MINUS;
 
 control:
 	verseRemnant
@@ -73,6 +75,7 @@ DOLLAR: '$';
 SPACE: ' ';
 TILDE: '~';
 EQUAL: '=';
+MINUS: '-';
 PLUS: '+';
 PIPE: '|';
 X: 'x';
