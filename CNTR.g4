@@ -5,6 +5,7 @@ verse: reference (SPACE word+)+;
 word: element+;
 element:
 	page_break
+	| column_break
 	| line_break
 	| line_remnant
 	| character_damaged
@@ -17,8 +18,10 @@ element:
 	| MACRON
 	| LETTER;
 
-page_break: BACKSLASH DIGIT?;
-line_break: FORWARD_SLASH DIGIT?;
+count: DIGIT+;
+page_break: BACKSLASH count?;
+column_break: PIPE count?;
+line_break: FORWARD_SLASH count?;
 line_remnant: AMPERSAND;
 character_damaged: PERCENT;
 character_missing: CIRCUMFLEX;
@@ -49,3 +52,4 @@ ASTERISK: '*';
 PLUS: '+';
 DOLLAR: '$';
 MACRON: '\u00af';
+PIPE: '|';
