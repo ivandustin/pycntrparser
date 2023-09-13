@@ -1,8 +1,9 @@
 grammar CNTR;
 
 start: verses EOF;
-verses: verse (NEWLINE verse)*;
+
 verse: reference SPACE blocks NEWLINE?;
+verses: verse (NEWLINE verse)*;
 blocks: block (SPACE block)*;
 words: word (SPACE word)*;
 block: word | edits;
