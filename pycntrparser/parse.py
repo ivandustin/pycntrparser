@@ -1,6 +1,6 @@
 from antlr4 import InputStream, CommonTokenStream
-from CNTRParser import CNTRParser
-from CNTRLexer import CNTRLexer
+from .CNTRParser import CNTRParser
+from .CNTRLexer import CNTRLexer
 
 
 def parse(filepath):

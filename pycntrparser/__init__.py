@@ -1,6 +1,6 @@
-from pycntrparser.args.parse import parse as parse_args
-from pycntrparser.expand import expand
-from pycntrparser.parse import parse
+from .args.parse import parse as parse_args
+from .expand import expand
+from .parse import parse
 
 
 def main():
@@ -8,7 +8,3 @@ def main():
     paths = args.path
     filepaths = set(*map(expand, paths))
     list(map(parse, filepaths))
-
-
-if __name__ == "__main__":
-    main()
