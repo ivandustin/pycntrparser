@@ -44,13 +44,13 @@ wordSupplied: TILDE;
 nominaSacra: EQUAL;
 count: DIGIT+;
 
-edits: controls? first (SPACE second (SPACE third)?)?;
+edits: first (SPACE second (SPACE third)?)?;
 edit: OPEN_CURLY words? CLOSE_CURLY;
 first: uncorrected SPACE corrected;
-uncorrected: X edit;
-corrected: edit;
-second: A edit;
-third: B edit;
+uncorrected: controls? X edit;
+corrected: controls? edit;
+second: controls? A edit;
+third: controls? B edit;
 
 reference: bookNumber chapterNumber verseNumber;
 chapterNumber: DIGIT DIGIT DIGIT;
