@@ -8,26 +8,22 @@ blocks: block (SPACE block)*;
 words: word (SPACE word)*;
 content: empty | blocks;
 block: word | edits;
-controls: control+;
 word: element+;
 empty: MINUS;
-
-control:
-	verseRemnant
-	| columnBreak
-	| lineRemnant
-	| lineBreak
-	| pageBreak;
 
 element:
 	numericAbbreviation
 	| wordSuppliedByVid
 	| characterDamaged
 	| characterMissing
+	| verseRemnant
 	| wordSupplied
+	| columnBreak
+	| lineRemnant
 	| nominaSacra
 	| REPLACEMENT
-	| control
+	| lineBreak
+	| pageBreak
 	| LETTER
 	| MACRON;
 
@@ -44,14 +40,14 @@ wordSupplied: TILDE;
 nominaSacra: EQUAL;
 count: DIGIT+;
 
-edits: first (SPACE second (SPACE third)?)?;
+edits: first (SPACE second)? (SPACE third)?;
 edit: OPEN_CURLY words? CLOSE_CURLY;
 
-first: uncorrected SPACE corrected;
-uncorrected: controls? X edit controls?;
-corrected: controls? edit controls?;
-second: controls? A edit controls?;
-third: controls? B edit controls?;
+first: (uncorrected SPACE)? corrected;
+uncorrected: X edit;
+corrected: edit;
+second: A edit;
+third: B edit;
 
 reference: bookNumber chapterNumber verseNumber;
 chapterNumber: DIGIT DIGIT DIGIT;
