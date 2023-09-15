@@ -22,7 +22,6 @@ element:
 	| columnBreak
 	| lineRemnant
 	| nominaSacra
-	| REPLACEMENT
 	| lineBreak
 	| pageBreak
 	| LETTER
@@ -57,9 +56,8 @@ chapterNumber: DIGIT DIGIT DIGIT;
 verseNumber: DIGIT DIGIT DIGIT;
 bookNumber: DIGIT DIGIT;
 
+LETTER: [\u03b1-\u03c9] | '\u03d7' | '\u2ce8' | '\ufffd';
 COMMENT: '#' ~[\r\n]* ('\r'? '\n')?;
-LETTER: [\u03b1-\u03c9] | '\u03d7' | '\u2ce8';
-REPLACEMENT: '\ufffd';
 NEWLINE: '\r'? '\n';
 FORWARD_SLASH: '/';
 MACRON: '\u00af';
