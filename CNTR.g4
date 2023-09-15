@@ -2,13 +2,14 @@ grammar CNTR;
 
 start: COMMENT* verses EOF;
 
-verse: reference SPACE content NEWLINE?;
+verse: reference SPACE text NEWLINE?;
 verses: verse (NEWLINE verse)*;
 blocks: block (SPACE block)*;
 words: word (SPACE word)*;
-content: empty | blocks;
-block: word | edits;
-word: element+;
+block: word | edited;
+text: empty | blocks;
+elements: element+;
+word: elements;
 empty: MINUS;
 
 element:
@@ -40,10 +41,12 @@ wordSupplied: TILDE;
 nominaSacra: EQUAL;
 count: DIGIT+;
 
-edits: first (SPACE second)? (SPACE third)?;
+edited: first (SPACE second)? (SPACE third)?;
 edit: OPEN_CURLY words? CLOSE_CURLY;
 
-first: (uncorrected SPACE)? corrected;
+first:
+	elements? uncorrected elements? SPACE corrected
+	| elements? corrected elements?;
 uncorrected: X edit;
 corrected: edit;
 second: A edit;
