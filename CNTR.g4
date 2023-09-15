@@ -12,7 +12,7 @@ elements: element+;
 word: elements;
 empty: MINUS;
 
-letter: ALPHA_TO_OMEGA | KAI | COPTIC_TAU_RO | REPLACEMENT;
+letter: ALPHA_TO_OMEGA | KAI | MOU | COPTIC_TAU_RO | REPLACEMENT;
 symbol: letter | MACRON | LOWER_NUMERAL_SIGN;
 
 element:
@@ -64,6 +64,7 @@ COPTIC_TAU_RO: '\u2ce8';
 REPLACEMENT: '\ufffd';
 MACRON: '\u00af';
 KAI: '\u03d7';
+MOU: '\ue001';
 
 COMMENT: '#' ~[\r\n]* ('\r'? '\n')?;
 NEWLINE: '\r'? '\n';
