@@ -13,7 +13,7 @@ word: elements;
 empty: MINUS;
 
 letter: ALPHA_TO_OMEGA | KAI | COPTIC_TAU_RO | REPLACEMENT;
-symbol: letter | MACRON;
+symbol: letter | MACRON | LOWER_NUMERAL_SIGN;
 
 element:
 	numericAbbreviation
@@ -59,6 +59,7 @@ verseNumber: DIGIT DIGIT DIGIT;
 bookNumber: DIGIT DIGIT;
 
 ALPHA_TO_OMEGA: [\u03b1-\u03c9];
+LOWER_NUMERAL_SIGN: '\u0375';
 COPTIC_TAU_RO: '\u2ce8';
 REPLACEMENT: '\ufffd';
 MACRON: '\u00af';
