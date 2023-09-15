@@ -12,6 +12,9 @@ elements: element+;
 word: elements;
 empty: MINUS;
 
+letter: ALPHA_TO_OMEGA | KAI | COPTIC_TAU_RO | REPLACEMENT;
+symbol: letter | MACRON;
+
 element:
 	numericAbbreviation
 	| wordSuppliedByVid
@@ -24,8 +27,7 @@ element:
 	| nominaSacra
 	| lineBreak
 	| pageBreak
-	| LETTER
-	| MACRON;
+	| symbol;
 
 lineBreak: FORWARD_SLASH count?;
 characterMissing: CIRCUMFLEX;
@@ -56,11 +58,15 @@ chapterNumber: DIGIT DIGIT DIGIT;
 verseNumber: DIGIT DIGIT DIGIT;
 bookNumber: DIGIT DIGIT;
 
-LETTER: [\u03b1-\u03c9] | '\u03d7' | '\u2ce8' | '\ufffd';
+ALPHA_TO_OMEGA: [\u03b1-\u03c9];
+COPTIC_TAU_RO: '\u2ce8';
+REPLACEMENT: '\ufffd';
+MACRON: '\u00af';
+KAI: '\u03d7';
+
 COMMENT: '#' ~[\r\n]* ('\r'? '\n')?;
 NEWLINE: '\r'? '\n';
 FORWARD_SLASH: '/';
-MACRON: '\u00af';
 CLOSE_CURLY: '}';
 BACKSLASH: '\\';
 CIRCUMFLEX: '^';
