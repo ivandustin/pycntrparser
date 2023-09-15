@@ -58,7 +58,7 @@ verseNumber: DIGIT DIGIT DIGIT;
 bookNumber: DIGIT DIGIT;
 
 COMMENT: '#' ~[\r\n]* ('\r'? '\n')?;
-LETTER: [\u03b1-\u03c9] | '\u03d7';
+LETTER: [\u03b1-\u03c9] | '\u03d7' | '\u2ce8';
 REPLACEMENT: '\ufffd';
 NEWLINE: '\r'? '\n';
 FORWARD_SLASH: '/';
