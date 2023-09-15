@@ -12,7 +12,7 @@ elements: element+;
 word: elements;
 empty: MINUS;
 
-letter: ALPHA_TO_OMEGA | KAI | MOU | COPTIC_TAU_RO | REPLACEMENT;
+letter: ALPHA_TO_OMEGA | KAI | MOU | COPTIC_TAU_RO | KOPPA | REPLACEMENT;
 symbol: letter | MACRON | LOWER_NUMERAL_SIGN;
 
 element:
@@ -63,6 +63,7 @@ LOWER_NUMERAL_SIGN: '\u0375';
 COPTIC_TAU_RO: '\u2ce8';
 REPLACEMENT: '\ufffd';
 MACRON: '\u00af';
+KOPPA: '\u03df';
 KAI: '\u03d7';
 MOU: '\ue001';
 
