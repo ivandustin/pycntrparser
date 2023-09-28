@@ -2,7 +2,7 @@ grammar CNTR;
 
 start: COMMENT* verses EOF;
 
-verse: reference SPACE text NEWLINE?;
+verse: reference SPACE alternateVersification? text NEWLINE?;
 verses: verse (NEWLINE verse)*;
 blocks: block (SPACE block)*;
 words: word (SPACE word)*;
@@ -38,6 +38,7 @@ element:
 	| symbol;
 
 lineBreak: FORWARD_SLASH count?;
+alternateVersification: DIAMOND;
 characterMissing: CIRCUMFLEX;
 numericAbbreviation: DOLLAR;
 pageBreak: BACKSLASH count?;
@@ -79,6 +80,7 @@ MOU: '\ue001';
 COMMENT: '#' ~[\r\n]* ('\r'? '\n')?;
 NEWLINE: '\r'? '\n';
 FORWARD_SLASH: '/';
+DIAMOND: '\u22c4';
 CLOSE_CURLY: '}';
 BACKSLASH: '\\';
 CIRCUMFLEX: '^';
