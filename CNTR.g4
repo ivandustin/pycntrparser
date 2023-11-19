@@ -18,25 +18,26 @@ symbol: letter | MACRON | LOWER_NUMERAL_SIGN;
 
 character: symbol | characterDamaged | characterMissing;
 
-format:
-	verseRemnant
-	| lineRemnant
-	| columnBreak
-	| lineBreak
-	| pageBreak;
+break: columnBreak | lineBreak | pageBreak;
 
-wordType: nominaSacra | numericAbbreviation;
+remnant: lineRemnant | verseRemnant;
 
-word:
-	format* (wordSupplied | wordSuppliedByVid)* wordType? character (
-		character
-		| format
-	)*;
+modifier: nominaSacra | numericAbbreviation;
+
+supplied: wordSupplied | wordSuppliedByVid;
+
+word: break* supplied* modifier? character (character | break)*;
 
 block: word | editedText;
 blocks: block (SPACE block)*;
 
-text: format* (alternateVersification? (blocks | empty))?;
+text:
+	break* (
+		alternateVersification? (
+			remnant* blocks remnant*
+			| empty
+		)
+	)?;
 
 lineBreak: FORWARD_SLASH count?;
 alternateVersification: DIAMOND;
