@@ -1,16 +1,9 @@
 grammar CNTR;
 
-start: COMMENT* verses EOF;
+start: verses EOF;
 
-verse: reference SPACE alternateVersification? text NEWLINE?;
+verse: reference SPACE text NEWLINE?;
 verses: verse (NEWLINE verse)*;
-blocks: block (SPACE block)*;
-words: word (SPACE word)*;
-block: word | edited;
-text: empty | blocks;
-elements: element+;
-word: elements;
-empty: MINUS;
 
 letter:
 	ALPHA_TO_OMEGA
@@ -23,19 +16,27 @@ letter:
 
 symbol: letter | MACRON | LOWER_NUMERAL_SIGN;
 
-element:
-	numericAbbreviation
-	| wordSuppliedByVid
-	| characterDamaged
-	| characterMissing
-	| verseRemnant
-	| wordSupplied
-	| columnBreak
+character: symbol | characterDamaged | characterMissing;
+
+format:
+	verseRemnant
 	| lineRemnant
-	| nominaSacra
+	| columnBreak
 	| lineBreak
-	| pageBreak
-	| symbol;
+	| pageBreak;
+
+wordType: nominaSacra | numericAbbreviation;
+
+word:
+	format* (wordSupplied | wordSuppliedByVid)* wordType? character (
+		character
+		| format
+	)*;
+
+block: word | editedText;
+blocks: block (SPACE block)*;
+
+text: format* (alternateVersification? (blocks | empty))?;
 
 lineBreak: FORWARD_SLASH count?;
 alternateVersification: DIAMOND;
@@ -50,17 +51,16 @@ verseRemnant: ASTERISK;
 wordSupplied: TILDE;
 nominaSacra: EQUAL;
 count: DIGIT+;
+empty: MINUS;
 
-edited: first (SPACE second)? (SPACE third)?;
-edit: OPEN_CURLY words? CLOSE_CURLY;
+editedText: first (SPACE second)? (SPACE third)?;
+editedTextBody: OPEN_CURLY text CLOSE_CURLY;
 
-first:
-	elements? uncorrected elements? SPACE corrected
-	| elements? corrected elements?;
-uncorrected: X edit;
-corrected: edit;
-second: A edit;
-third: B edit;
+first: uncorrected SPACE corrected | corrected;
+uncorrected: X editedTextBody;
+corrected: editedTextBody;
+second: A editedTextBody;
+third: B editedTextBody;
 
 reference: bookNumber chapterNumber verseNumber;
 chapterNumber: DIGIT DIGIT DIGIT;
@@ -77,7 +77,6 @@ KOPPA: '\u03df';
 KAI: '\u03d7';
 MOU: '\ue001';
 
-COMMENT: '#' ~[\r\n]* ('\r'? '\n')?;
 NEWLINE: '\r'? '\n';
 FORWARD_SLASH: '/';
 DIAMOND: '\u22c4';
