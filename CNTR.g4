@@ -1,9 +1,9 @@
 grammar CNTR;
 
-start: verses EOF;
+start: lines EOF;
 
-verse: reference SPACE text NEWLINE?;
-verses: verse (NEWLINE verse)*;
+line: reference SPACE text NEWLINE?;
+lines: line (NEWLINE line)*;
 
 letter:
 	ALPHA_TO_OMEGA
