@@ -1,7 +1,3 @@
-*Listener.py
+pycntrparser/CNTR*
 __pycache__
-*Parser.py
-*Lexer.py
-*.interp
-*.tokens
 .antlr
