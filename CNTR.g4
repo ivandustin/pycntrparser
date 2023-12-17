@@ -19,25 +19,25 @@ symbol: letter | MACRON | LOWER_NUMERAL_SIGN;
 character: symbol | characterDamaged | characterMissing;
 
 break: columnBreak | lineBreak | pageBreak;
+breaks: break+;
 
 remnant: lineRemnant | verseRemnant;
+remnants: remnant+;
 
 modifier: nominaSacra | numericAbbreviation;
 
 supplied: wordSupplied | wordSuppliedByVid;
 
-word: break* supplied* modifier? character (character | break)*;
+word:
+	(breaks? remnants? | remnants? breaks?) supplied* modifier? character (
+		character
+		| break
+	)* remnants? breaks?;
 
 block: word | editedText;
 blocks: block (SPACE block)*;
 
-text:
-	break* (
-		alternateVersification? (
-			remnant* blocks remnant*
-			| empty
-		)
-	)?;
+text: breaks? (alternateVersification? (blocks | empty))?;
 
 lineBreak: FORWARD_SLASH count?;
 alternateVersification: DIAMOND;
