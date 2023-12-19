@@ -24,20 +24,28 @@ breaks: break+;
 remnant: lineRemnant | verseRemnant;
 remnants: remnant+;
 
+suffix: breaks remnants | remnants breaks | breaks | remnants;
+
 modifier: nominaSacra | numericAbbreviation;
 
-supplied: wordSupplied | wordSuppliedByVid;
+supplied:
+	wordSuppliedByVid wordSupplied
+	| wordSupplied wordSuppliedByVid
+	| wordSuppliedByVid
+	| wordSupplied;
+
+subword: character ((character | break)* character)?;
 
 word:
-	(breaks? remnants? | remnants? breaks?) supplied* modifier? character (
-		character
-		| break
-	)* remnants? breaks?;
+	supplied? modifier? subword supplied subword
+	| supplied? modifier? subword;
 
-block: word | editedText;
+block: suffix? word suffix? | editedText;
 blocks: block (SPACE block)*;
 
-text: breaks? (alternateVersification? (blocks | empty))?;
+verse: alternateVersification? (blocks | empty);
+
+text: suffix? verse?;
 
 lineBreak: FORWARD_SLASH count?;
 alternateVersification: DIAMOND;
