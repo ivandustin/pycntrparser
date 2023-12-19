@@ -34,11 +34,9 @@ supplied:
 	| wordSuppliedByVid
 	| wordSupplied;
 
-simple:
-	suffix? supplied? modifier? character (
-		(character | break)* character
-	)? suffix?;
-complex: simple simple+;
+string: character ((character | break)* character)?;
+simple: suffix? supplied? modifier? string suffix?;
+complex: simple (supplied string suffix?)+;
 word: simple | complex;
 
 block: word | editedText;
@@ -63,7 +61,7 @@ empty: MINUS;
 
 editedTextBody: OPEN_CURLY editedTextContent CLOSE_CURLY;
 editedText: first (SPACE second)? (SPACE third)?;
-editedTextContent: breaks? verse?;
+editedTextContent: suffix? verse?;
 
 first: uncorrected SPACE corrected | corrected;
 uncorrected: X editedTextBody;
