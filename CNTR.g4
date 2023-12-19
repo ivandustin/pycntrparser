@@ -2,7 +2,7 @@ grammar CNTR;
 
 start: lines EOF;
 
-line: reference SPACE text NEWLINE?;
+line: reference SPACE verse NEWLINE?;
 lines: line (NEWLINE line)*;
 
 letter:
@@ -34,18 +34,17 @@ supplied:
 	| wordSuppliedByVid
 	| wordSupplied;
 
-subword: character ((character | break)* character)?;
+simple:
+	suffix? supplied? modifier? character (
+		(character | break)* character
+	)? suffix?;
+complex: simple simple+;
+word: simple | complex;
 
-word:
-	supplied? modifier? subword supplied subword
-	| supplied? modifier? subword;
-
-block: suffix? word suffix? | editedText;
+block: word | editedText;
 blocks: block (SPACE block)*;
 
 verse: alternateVersification? (blocks | empty);
-
-text: suffix? verse?;
 
 lineBreak: FORWARD_SLASH count?;
 alternateVersification: DIAMOND;
@@ -62,8 +61,9 @@ nominaSacra: EQUAL;
 count: DIGIT+;
 empty: MINUS;
 
+editedTextBody: OPEN_CURLY editedTextContent CLOSE_CURLY;
 editedText: first (SPACE second)? (SPACE third)?;
-editedTextBody: OPEN_CURLY text CLOSE_CURLY;
+editedTextContent: breaks? verse?;
 
 first: uncorrected SPACE corrected | corrected;
 uncorrected: X editedTextBody;
