@@ -34,12 +34,12 @@ supplied:
 	| wordSuppliedByVid
 	| wordSupplied;
 
-string: character ((character | break)* character)?;
-simple: suffix? supplied? modifier? string suffix?;
-complex: simple (supplied string suffix?)+;
-word: simple | complex;
+word: character ((character | break)* character)?;
+head: suffix? supplied? modifier? word suffix?;
+tail: supplied word suffix?;
+string: head tail?;
 
-block: word | editedText;
+block: string | editedText;
 blocks: block (SPACE block)*;
 
 verse: alternateVersification? (blocks | empty);
