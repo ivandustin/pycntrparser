@@ -1,3 +1,4 @@
 pycntrparser/CNTR*
 __pycache__
 .antlr
+dist
