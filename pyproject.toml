@@ -5,6 +5,7 @@ description = "Parse CNTR transcriptions using ANTLR4"
 authors = ["Ivan Dustin Bilon <ivan22.dust@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+include = ["pycntrparser/CNTR*"]
 
 [tool.poetry.scripts]
 cntr-check = "pycntrparser.__init__:main"
