@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pycntrparser"
-version = "0.1.0"
+version = "0.1.1"
 description = "Parse CNTR transcriptions using ANTLR4"
 authors = ["Ivan Dustin Bilon <ivan22.dust@gmail.com>"]
 license = "MIT"
