@@ -39,11 +39,20 @@ head: suffix? supplied? modifier? word suffix?;
 tail: supplied word suffix?;
 string: head tail?;
 
-block: string | editedText;
 blocks: block (SPACE block)*;
+block: string | editedText;
 
-verse: alternateVersification? (blocks | empty);
+verse:
+	alternateVersification?
+	(
+		blocks
+		| verseAssumedPresentByVid
+		| verseAssumedMissingByVid
+		| verseMissing
+	);
 
+verseAssumedMissingByVid: MINUS TILDE;
+verseAssumedPresentByVid: PLUS TILDE;
 lineBreak: FORWARD_SLASH count?;
 alternateVersification: DIAMOND;
 characterMissing: CIRCUMFLEX;
@@ -54,10 +63,10 @@ columnBreak: PIPE count?;
 wordSuppliedByVid: PLUS;
 lineRemnant: AMPERSAND;
 verseRemnant: ASTERISK;
+verseMissing: MINUS;
 wordSupplied: TILDE;
 nominaSacra: EQUAL;
 count: DIGIT+;
-empty: MINUS;
 
 editedTextBody: OPEN_CURLY editedTextContent CLOSE_CURLY;
 editedText: first (SPACE second)? (SPACE third)?;
